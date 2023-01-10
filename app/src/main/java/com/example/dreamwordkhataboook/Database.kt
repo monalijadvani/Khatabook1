@@ -10,19 +10,21 @@ class Database(context: Context?) : SQLiteOpenHelper(context, "school.db", null,
     var context = context
     override fun onCreate(p0: SQLiteDatabase?) {
         var sql =
-            "CREATE TABLE student (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, amount TEXT, cc TEXT, remark Text, type INTEGER)"
+            "CREATE TABLE student (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, amount INTEGER, cc TEXT, remark Text)"
         p0?.execSQL(sql)
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {}
-    fun insertdata(name: String, amount: String, cc: String, remark: String, type: Int) {
+    fun insertdata(name: String, amount: Int, cc: String, remark: String) {
         var db = writableDatabase
         var value = ContentValues()
         value.put("name", name)
         value.put("amount", amount)
         value.put("cc", cc)
         value.put("remark", remark)
-        value.put("type", type)
+
+
+
 
         var iss = db.insert("student", null, value)
         if (iss.toInt() == -1) {
@@ -43,7 +45,7 @@ class Database(context: Context?) : SQLiteOpenHelper(context, "school.db", null,
         for (x in 0..cursor.count - 1) {
             var id = cursor.getInt(0)
             var name = cursor.getString(1)
-            var amount = cursor.getString(2)
+            var amount = cursor.getInt(2)
             var cc = cursor.getString(3)
             var remark = cursor.getString(4)
             var model = UserModel(id, name, amount, cc, remark)

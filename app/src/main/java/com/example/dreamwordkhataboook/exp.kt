@@ -1,23 +1,18 @@
 package com.example.dreamwordkhataboook
 
-import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
-import com.example.dreamwordkhataboook.databinding.FragmentAddBinding
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.dreamwordkhataboook.databinding.FragmentExpBinding
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
-class add : DialogFragment() {
-
+class exp : DialogFragment() {
     private var param1: String? = null
     private var param2: String? = null
 
@@ -34,7 +29,7 @@ class add : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        var binding = FragmentAddBinding.inflate(layoutInflater)
+        var binding = FragmentExpBinding.inflate(layoutInflater)
         binding.BtnDialogAdd.setOnClickListener{
             var id = binding.txtId.text.toString()
             var name = binding.Addname.text.toString()
@@ -48,6 +43,7 @@ class add : DialogFragment() {
 
         }
 
+
         return binding.root
     }
     override fun onStart() {
@@ -56,12 +52,11 @@ class add : DialogFragment() {
         val height = (resources.displayMetrics.heightPixels * 0.40).toInt()
         dialog!!.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
-
     companion object {
 
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            add().apply {
+            exp().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

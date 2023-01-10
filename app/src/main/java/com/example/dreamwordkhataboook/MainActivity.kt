@@ -1,8 +1,10 @@
 package com.example.dreamwordkhataboook
 
+import android.app.Dialog
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dreamwordkhataboook.databinding.ActivityMainBinding
 import java.text.SimpleDateFormat
@@ -30,7 +32,13 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.btnAdd.setOnClickListener {
-            onlogin()
+            onincome()
+            setContentView(binding.root)
+        }
+
+        binding.btnexp.setOnClickListener{
+            onexp()
+
             setContentView(binding.root)
         }
         setContentView(binding.root)
@@ -39,12 +47,18 @@ class MainActivity : AppCompatActivity() {
         adapter = UserDataAdapter(list)
         binding.rcvList.layoutManager = LinearLayoutManager(applicationContext)
         binding.rcvList.adapter = adapter
-        var date = Calendar.getInstance()
-        var format = SimpleDateFormat("d/M/y h:m:s a")
-        var current = format.format(date.time)
+
+
+
+
     }
 
-    private fun onlogin() {
+    private fun onexp() {
+        exp().show(supportFragmentManager, "MyCustomFragment")
+    }
+
+    private fun onincome() {
         add().show(supportFragmentManager, "MyCustomFragment")
     }
+
 }

@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class UserDataAdapter(list: ArrayList<UserModel>) :
     RecyclerView.Adapter<UserDataAdapter.UserDataHolder>() {
@@ -16,7 +19,11 @@ class UserDataAdapter(list: ArrayList<UserModel>) :
     lateinit var context: Context
 
 
+
+
     class UserDataHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+
 
         var txtname = itemView.findViewById<TextView>(R.id.txtName)
         var txtcc = itemView.findViewById<TextView>(R.id.txtcc)
@@ -26,7 +33,8 @@ class UserDataAdapter(list: ArrayList<UserModel>) :
         var btnAdd = itemView.findViewById<Button>(R.id.btnAdd)
         var amount = itemView.findViewById<TextView>(R.id.amount)
         var txtremark = itemView.findViewById<TextView>(R.id.txtremark)
-
+        var income = itemView.findViewById<TextView>(R.id.income)
+        var txttime = itemView.findViewById<TextView>(R.id.txttime)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserDataHolder {
@@ -39,12 +47,24 @@ class UserDataAdapter(list: ArrayList<UserModel>) :
         )
     }
 
+
     override fun onBindViewHolder(holder: UserDataHolder, position: Int) {
 
+
+        var calendar = Calendar.getInstance()
+        var simpleDateFormat = SimpleDateFormat("HH:mm:ss aaa dd.LLLL.yyyy  ")
+        var dateTime = simpleDateFormat.format(calendar.time).toString()
+
+
+
+
+
         holder.txtname.text = modellist.get(position).name
-        holder.amount.text = modellist.get(position).amount
+        holder.amount.text = modellist.get(position).amount.toString()
         holder.txtcc.text = modellist.get(position).cc
         holder.txtremark.text = modellist.get(position).remark
+        holder.txttime.text = dateTime.toString()
+//        holder.income.text = modellist.get(position).amount .toString()
         database = Database(context)
 
         holder.btnUpdate.setOnClickListener {
@@ -92,6 +112,7 @@ class UserDataAdapter(list: ArrayList<UserModel>) :
     }
 
     fun update(list: ArrayList<UserModel>) {
+
         modellist = list
         notifyDataSetChanged()
     }

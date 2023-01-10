@@ -1,22 +1,30 @@
 package com.example.dreamwordkhataboook
 
+import java.text.SimpleDateFormat
+import java.time.chrono.ChronoLocalDateTime
+import java.util.*
+
 class UserModel {
 
-        var id = 0
-        lateinit var name:String
-        lateinit var amount:String
-        lateinit var cc:String
-        lateinit var remark:String
+    var id = 0
+    lateinit var name: String
+    var amount: Int = 0
+    lateinit var cc: String
+    lateinit var remark: String
 
 
-        constructor(id: Int, name: String, amount: String, cc: String,remark :String) {
-            this.id = id
-            this.name = name
-            this.amount = amount
-            this.cc = cc
-            this.remark= remark
-        }
 
-        constructor()
+
+
+    constructor(id: Int, name: String, amount: Int, cc: String, remark: String) {
+        this.id = id
+        this.name = name
+        this.amount = amount
+        this.cc = cc
+        this.remark = remark
+
+    }
+
+    constructor()
 
 }
