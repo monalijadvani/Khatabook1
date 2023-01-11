@@ -10,21 +10,19 @@ class Database(context: Context?) : SQLiteOpenHelper(context, "school.db", null,
     var context = context
     override fun onCreate(p0: SQLiteDatabase?) {
         var sql =
-            "CREATE TABLE student (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, amount INTEGER, cc TEXT, remark Text)"
+            "CREATE TABLE student (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, amount INTEGER, cc TEXT, remark Text,time TEXT)"
         p0?.execSQL(sql)
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {}
-    fun insertdata(name: String, amount: Int, cc: String, remark: String) {
+    fun insertdata(name: String, amount: Int, cc: String, remark: String, time: String) {
         var db = writableDatabase
         var value = ContentValues()
         value.put("name", name)
         value.put("amount", amount)
         value.put("cc", cc)
         value.put("remark", remark)
-
-
-
+        value.put("time", time)
 
         var iss = db.insert("student", null, value)
         if (iss.toInt() == -1) {
@@ -32,6 +30,7 @@ class Database(context: Context?) : SQLiteOpenHelper(context, "school.db", null,
         } else {
             Toast.makeText(context, "data inserted", Toast.LENGTH_SHORT).show()
         }
+
     }
 
 
@@ -48,14 +47,16 @@ class Database(context: Context?) : SQLiteOpenHelper(context, "school.db", null,
             var amount = cursor.getInt(2)
             var cc = cursor.getString(3)
             var remark = cursor.getString(4)
-            var model = UserModel(id, name, amount, cc, remark)
+            var time = cursor.getString(5)
+            var model = UserModel(id, name, amount, cc, remark, time)
             modellist.add(model)
             cursor.moveToNext()
+
+
         }
+
         return modellist
     }
-
-
     fun updatedata(id: Int, name: String, amount: String, cc: String, remark: String) {
         var db = writableDatabase
         var values = ContentValues()
@@ -69,6 +70,17 @@ class Database(context: Context?) : SQLiteOpenHelper(context, "school.db", null,
     fun deleteData(id: Int) {
         var db = writableDatabase
         db.delete("student", "id=$id", null)
+    }
+
+
+    fun totalbalance(total: Int) {
+        var total = 0;
+
+        for (l in MainActivity.list) {
+            total += l.amount
+        }
+
+
     }
 
 }

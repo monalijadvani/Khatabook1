@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.dreamwordkhataboook.databinding.FragmentExpBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -36,8 +38,11 @@ class exp : DialogFragment() {
             var amount = binding.Addamount.text.toString().toInt()
             var cc = binding.Addcc.text.toString()
             var remark = binding.Addremark.text.toString()
+            var calendar = Calendar.getInstance()
+            var simpleDateFormat = SimpleDateFormat("HH:mm:ss aaa dd.LLLL.yyyy  ")
+            var dateTime = simpleDateFormat.format(calendar.time).toString()
 
-            MainActivity.database.insertdata(name,amount,cc,remark)
+            MainActivity.database.insertdata(name,amount,cc,remark,dateTime)
             MainActivity.updated()
             dialog?.dismiss()
 

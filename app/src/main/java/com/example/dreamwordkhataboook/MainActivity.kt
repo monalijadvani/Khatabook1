@@ -1,14 +1,10 @@
 package com.example.dreamwordkhataboook
 
-import android.app.Dialog
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dreamwordkhataboook.databinding.ActivityMainBinding
-import java.text.SimpleDateFormat
-import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
         var binding = ActivityMainBinding.inflate(layoutInflater)
 
@@ -36,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             setContentView(binding.root)
         }
 
-        binding.btnexp.setOnClickListener{
+        binding.btnexp.setOnClickListener {
             onexp()
 
             setContentView(binding.root)
@@ -49,7 +47,13 @@ class MainActivity : AppCompatActivity() {
         binding.rcvList.adapter = adapter
 
 
+        var total = 0;
 
+        for (l in list) {
+            total += l.amount
+        }
+
+        binding.balance.text = "$total"
 
     }
 
@@ -60,5 +64,7 @@ class MainActivity : AppCompatActivity() {
     private fun onincome() {
         add().show(supportFragmentManager, "MyCustomFragment")
     }
+
+
 
 }

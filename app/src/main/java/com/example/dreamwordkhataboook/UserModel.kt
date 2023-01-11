@@ -11,17 +11,17 @@ class UserModel {
     var amount: Int = 0
     lateinit var cc: String
     lateinit var remark: String
+    lateinit var time: String
 
 
-
-
-
-    constructor(id: Int, name: String, amount: Int, cc: String, remark: String) {
+    constructor(id: Int, name: String, amount: Int, cc: String, remark: String, time: String) {
         this.id = id
         this.name = name
         this.amount = amount
         this.cc = cc
         this.remark = remark
+        this.time = time
+
 
     }
 

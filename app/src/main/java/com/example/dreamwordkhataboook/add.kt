@@ -41,8 +41,12 @@ class add : DialogFragment() {
             var amount = binding.Addamount.text.toString().toInt()
             var cc = binding.Addcc.text.toString()
             var remark = binding.Addremark.text.toString()
+            var calendar = Calendar.getInstance()
+            var simpleDateFormat = SimpleDateFormat("HH:mm:ss aaa dd.LLLL.yyyy  ")
+            var dateTime = simpleDateFormat.format(calendar.time).toString()
 
-            MainActivity.database.insertdata(name,amount,cc,remark)
+
+            MainActivity.database.insertdata(name,amount,cc,remark,dateTime)
             MainActivity.updated()
             dialog?.dismiss()
 

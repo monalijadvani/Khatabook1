@@ -24,7 +24,6 @@ class UserDataAdapter(list: ArrayList<UserModel>) :
     class UserDataHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
-
         var txtname = itemView.findViewById<TextView>(R.id.txtName)
         var txtcc = itemView.findViewById<TextView>(R.id.txtcc)
         var btnUpdate = itemView.findViewById<Button>(R.id.btnUpdate)
@@ -50,27 +49,15 @@ class UserDataAdapter(list: ArrayList<UserModel>) :
 
     override fun onBindViewHolder(holder: UserDataHolder, position: Int) {
 
-
-        var calendar = Calendar.getInstance()
-        var simpleDateFormat = SimpleDateFormat("HH:mm:ss aaa dd.LLLL.yyyy  ")
-        var dateTime = simpleDateFormat.format(calendar.time).toString()
-
-
-
-
-
         holder.txtname.text = modellist.get(position).name
         holder.amount.text = modellist.get(position).amount.toString()
         holder.txtcc.text = modellist.get(position).cc
         holder.txtremark.text = modellist.get(position).remark
-        holder.txttime.text = dateTime.toString()
-//        holder.income.text = modellist.get(position).amount .toString()
+        holder.txttime.text = modellist.get(position).time
         database = Database(context)
 
         holder.btnUpdate.setOnClickListener {
             var dialog = Dialog(context)
-
-
             dialog.setContentView(R.layout.update_dialog)
             var idd = dialog.findViewById<TextView>(R.id.txtId)
             var edtname = dialog.findViewById<TextView>(R.id.name)
@@ -105,11 +92,20 @@ class UserDataAdapter(list: ArrayList<UserModel>) :
             MainActivity.updated()
 
         }
+//        var total = 0;
+//
+//        for (l in MainActivity.list) {
+//            total += l.amount
+//        }
+//
+//        binding.balance.text = "$total"
+//
     }
 
     override fun getItemCount(): Int {
         return modellist.size
     }
+
 
     fun update(list: ArrayList<UserModel>) {
 
