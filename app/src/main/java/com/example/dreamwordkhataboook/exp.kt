@@ -42,7 +42,7 @@ class exp : DialogFragment() {
             var simpleDateFormat = SimpleDateFormat("HH:mm:ss aaa dd.LLLL.yyyy  ")
             var dateTime = simpleDateFormat.format(calendar.time).toString()
 
-            MainActivity.database.insertdata(name,amount,cc,remark,dateTime)
+            MainActivity.database.insertdata(name,amount,cc,remark,dateTime,0)
             MainActivity.updated()
             dialog?.dismiss()
 

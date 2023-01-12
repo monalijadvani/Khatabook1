@@ -14,19 +14,42 @@ class MainActivity : AppCompatActivity() {
         lateinit var database: Database
         lateinit var list: ArrayList<UserModel>
         lateinit var adapter: UserDataAdapter
-
+        lateinit var binding: ActivityMainBinding
         fun updated() {
             list.clear()
             list = database.showData()
             adapter.update(list)
+            UpdateTotal()
         }
+
+        fun UpdateTotal() {
+            var total = 0;
+            var income_total = 0;
+            var expence_total = 0;
+
+            for (l in list) {
+                total += l.amount
+                if (l.type == 1) {
+                    income_total += l.amount
+                } else if (l.type == 0) {
+                    expence_total += l.amount
+                }
+
+            }
+
+            binding.balance.text = "${income_total-expence_total}"
+            binding.income.text = "$income_total"
+            binding.exp.text = "$expence_total"
+
+        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
         super.onCreate(savedInstanceState)
-        var binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
 
         binding.btnAdd.setOnClickListener {
@@ -47,15 +70,10 @@ class MainActivity : AppCompatActivity() {
         binding.rcvList.adapter = adapter
 
 
-        var total = 0;
-
-        for (l in list) {
-            total += l.amount
-        }
-
-        binding.balance.text = "$total"
+        UpdateTotal()
 
     }
+
 
     private fun onexp() {
         exp().show(supportFragmentManager, "MyCustomFragment")
@@ -64,7 +82,6 @@ class MainActivity : AppCompatActivity() {
     private fun onincome() {
         add().show(supportFragmentManager, "MyCustomFragment")
     }
-
 
 
 }

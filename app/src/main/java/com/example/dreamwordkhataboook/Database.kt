@@ -1,5 +1,6 @@
 package com.example.dreamwordkhataboook
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -10,12 +11,12 @@ class Database(context: Context?) : SQLiteOpenHelper(context, "school.db", null,
     var context = context
     override fun onCreate(p0: SQLiteDatabase?) {
         var sql =
-            "CREATE TABLE student (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, amount INTEGER, cc TEXT, remark Text,time TEXT)"
+            "CREATE TABLE student (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, amount INTEGER, cc TEXT, remark Text,time TEXT,type INTEGER)"
         p0?.execSQL(sql)
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {}
-    fun insertdata(name: String, amount: Int, cc: String, remark: String, time: String) {
+    fun insertdata(name: String, amount: Int, cc: String, remark: String, time: String, type:Int) {
         var db = writableDatabase
         var value = ContentValues()
         value.put("name", name)
@@ -23,6 +24,7 @@ class Database(context: Context?) : SQLiteOpenHelper(context, "school.db", null,
         value.put("cc", cc)
         value.put("remark", remark)
         value.put("time", time)
+        value.put("type", type)
 
         var iss = db.insert("student", null, value)
         if (iss.toInt() == -1) {
@@ -34,6 +36,7 @@ class Database(context: Context?) : SQLiteOpenHelper(context, "school.db", null,
     }
 
 
+    @SuppressLint("Range")
     fun showData(): ArrayList<UserModel> {
 
         var modellist = ArrayList<UserModel>()
@@ -48,7 +51,8 @@ class Database(context: Context?) : SQLiteOpenHelper(context, "school.db", null,
             var cc = cursor.getString(3)
             var remark = cursor.getString(4)
             var time = cursor.getString(5)
-            var model = UserModel(id, name, amount, cc, remark, time)
+            var type = cursor.getInt(cursor.getColumnIndex("type"))
+            var model = UserModel(id, name, amount, cc, remark, time, type)
             modellist.add(model)
             cursor.moveToNext()
 
